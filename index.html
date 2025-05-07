@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Download Config File</title>
+</head>
+<body>
+    <h1>Configure Your Mission</h1>
+    <form id="configForm">
+        <h2>Faction Settings</h2>
+        <label for="faction">What Faction do you want?</label>
+        <br>
+        <select name="faction" id="faction" onchange="updateCamoOptions()">
+            <option value="NOT A VALID FACTION">Please select a faction.</option>
+            <option value="ALTIS ARMED FORCES">ALTIS ARMED FORCES</option>
+            <option value="ALTIS LAW ENFORCEMENT">ALTIS LAW ENFORCEMENT</option>
+            <option value="ARMY OF THE CZECH REPUBLIC">ARMY OF THE CZECH REPUBLIC</option>
+            <option value="AFRICAN ARMY">AFRICAN ARMY</option>
+            <option value="BRITISH ARMED FORCES">BRITISH ARMED FORCES</option>
+            <option value="BRITISH ARMED FORCES (3CB)">BRITISH ARMED FORCES (3CB)</option>
+            <option value="BRITISH SPECIAL FORCES">BRITISH SPECIAL FORCES</option>
+            <option value="BUNDESWEHR">BUNDESWEHR</option>
+            <option value="CANTON PROTOCOL STRATEGIC ALLIANCE TREATY">CANTON PROTOCOL STRATEGIC ALLIANCE TREATY (CSAT)</option>
+            <option value="GROUPE D'INTERVENTION DE LA GENDARMERIE NATIONALE (GIGN)">GROUPE D'INTERVENTION DE LA GENDARMERIE NATIONALE</option>
+            <option value="ION SERVICES INCORPORATED">ION SERVICES INCORPORATED</option>
+            <option value="LIVONIAN DEFENSE FORCE">LIVONIAN DEFENSE FORCE</option>
+            <option value="NORTH ATLANTIC TREATY ORGANIZATION (2020)">NORTH ATLANTIC TREATY ORGANIZATION (2020)</option>
+            <option value="NORTH ATLANTIC TREATY ORGANIZATION (2035)">NORTH ATLANTIC TREATY ORGANIZATION (2035)</option>
+            <option value="PEOPLE'S LIBERATION ARMY">PEOPLE'S LIBERATION ARMY</option>
+            <option value="PRIVATE MILITARY CONTRACTORS">PRIVATE MILITARY CONTRACTORS</option>
+            <option value="RUSSIAN ARMED FORCES">RUSSIAN ARMED FORCES</option>
+            <option value="RUSSIAN ARMED FORCES (RATNIK)">RUSSIAN ARMED FORCES (RATNIK)</option>
+            <option value="RUSSIAN SPECIAL FORCES">RUSSIAN SPECIAL FORCES</option>
+            <option value="SCP FOUNDATION">SCP FOUNDATION</option>
+            <option value="SYNDIKAT">SYNDIKAT</option>
+            <option value="TAKISTAN">TAKISTAN</option>
+            <option value="UNITED NATIONS">UNITED NATIONS</option>
+            <option value="UNITED STATES ARMY CORPS">UNITED STATES ARMY CORPS</option>
+            <option value="UNITED STATES MARSOC">UNITED STATES MARSOC</option>
+            <option value="BRITISH ARMED FORCES (3CB)">BRITISH ARMED FORCES (3CB)</option>
+            <option value="HL LAMBDA RESISTANCE">[HALF-LIFE] LAMBDA RESISTANCE</option>
+            <option value="HL UNIVERSAL UNION">[HALF-LIFE] UNIVERSAL UNION</option>
+            <option value="HALO UNITED NATIONS SPACE COMMAND">[HALO] UNITED NATIONS SPACE COMMAND</option>
+            <option value="SW CONFEDERACY OF INDEPENDENT SYSTEMS">[STAR WARS] CONFEDERACY OF INDEPENDENT SYSTEMS</option>
+            <option value="SW GALACTIC EMPIRE">[STAR WARS] GALACTIC EMPIRE</option>
+            <option value="SW GALACTIC REPUBLIC">[STAR WARS] GALACTIC REPUBLIC</option>
+            <option value="SW REBEL ALLIANCE">[STAR WARS] REBEL ALLIANCE</option>
+            <option value="WH ARMY OF THE EMPIRE">[WARHAMMER] ARMY OF THE EMPIRE</option>
+        </select>
+        <br>
+        <br>
+        <label for="camo">Select Camo:</label>
+        <br>
+        <select name="camo" id="camo" onchange="updateCamoPhoto()">
+        </select>
+        <br>
+        <div id="modMessage" style="color: red; display: none;">
+            <br>This faction requires an additional mod. Please remember to add it to your mission ticket.<br>
+            <a id="modLink" href="#" target="_blank">Click here to go to Steam Workshop.</a>
+        </div>
+        <br>
+        <div id="camo-section">
+            <img id="factionCamoPhoto" src="" alt="factionCamoPhoto"  style="display:none;" width="500" height="300" onclick="openImageInNewTab()">
+        </div>
+    
+        <h2>Weaponry Attachments</h2>
+        <input type="checkbox" name="scopes_checkbox" id="scopes" checked onchange="updateHidden(this)"> Do you want Scope Items Available?<br>
+        <input type="hidden" name="scopes" id="scopes_hidden" value="1">
+
+        <!-- Dropdown for scope restrictions -->
+        <div id="scopeRestrictionsContainer" style="display: block;">
+            <label for="scopeRestrictions">Select Scope Restriction:</label>
+            <select name="scopeRestrictions" id="scopeRestrictions" onchange="updateScopeRestrictions()">
+                <option value="none">No Restrictions</option>
+                <option value="cqb">CQB Only</option>
+                <option value="rus">Russian Only</option>
+                <option value="cqb+rus">CQB & Russian Only</option>
+            </select>
+        </div>
+        <input type="hidden" id="CHECK_SCOPES_CQB" value="0">
+        <input type="hidden" id="CHECK_SCOPES_RUS" value="0">
+        <input type="hidden" id="CHECK_SCOPES_RQB" value="0">
+
+        <input type="checkbox" name="lasers_checkbox" id="lasers" checked onchange="updateHidden(this)"> Do you want Laser / Flashlight Items Available?<br>
+        <input type="hidden" name="lasers" id="lasers_hidden" value="1">
+
+        <input type="checkbox" name="muzzles_checkbox" id="muzzles" checked onchange="updateHidden(this)"> Do you want Muzzle Items Available?<br>
+        <input type="hidden" name="muzzles" id="muzzles_hidden" value="1">
+
+        <input type="checkbox" name="grips_checkbox" id="grips" checked onchange="updateHidden(this)"> Do you want Grip / Bi-pod Items Available?<br>
+        <input type="hidden" name="grips" id="grips_hidden" value="1">
+
+        <h2>Equipment</h2>
+        <input type="checkbox" name="nvg_checkbox" id="ammo" onchange="updateHidden(this)"> Do you want to enable Simple Ammunition?<br>
+        <input type="hidden" name="ammo" id="ammo_hidden" value="0">
+ 
+        <input type="checkbox" name="nvg_checkbox" id="nvg" checked onchange="updateHidden(this)"> Do you want Nightvision Goggles Available?<br>
+        <input type="hidden" name="nvg" id="nvg_hidden" value="1">
+
+        <input type="checkbox" name="gps_checkbox" id="gps" checked onchange="updateHidden(this)"> Do you want GPS Devices Available?<br>
+        <input type="hidden" name="gps" id="gps_hidden" value="1">
+
+        <input type="checkbox" name="resupplybags_checkbox" id="resupplybags" onchange="updateHidden(this)"> Do you want Invisible Resupply Bags Available for everyone?<br>
+        <input type="hidden" name="resupplybags" id="resupplybags_hidden" value="0">
+
+        <input type="checkbox" name="food_checkbox" id="food" onchange="updateHidden(this)"> Do you want Food Items Available?<br>
+        <input type="hidden" name="food" id="food_hidden" value="0">
+
+        <input type="checkbox" name="food_checkbox" id="dispos" onchange="updateHidden(this)"> Do you want make Disposable Launchers available for everyone?<br>
+        <input type="hidden" name="dispos" id="dispos_hidden" value="0">
+
+
+        <h2>Cosmetics</h2>
+        <input type="checkbox" name="middleeast_checkbox" id="middleeast" onchange="updateHidden(this)"> Do you want Middle East Cosmetics Available?<br>
+        <input type="hidden" name="middleeast" id="middleeast_hidden" value="0">
+
+        <input type="checkbox" name="gasmasks_checkbox" id="gasmasks" onchange="updateHidden(this)"> Should Facewear only be Respirators?<br>
+        <input type="hidden" name="gasmasks" id="gasmasks_hidden" value="0">
+
+        <h2>RoleArsenal Settings</h2>
+        <input type="checkbox" name="startfactionchanging_checkbox" id="startfactionchanging" checked onchange="updateHidden(this)"> Do you want to Enable Faction/Camo Changing at the Starting Location?<br>
+        <input type="hidden" name="startfactionchanging" id="startfactionchanging_truehidden" value="true">
+
+        <input type="checkbox" name="startzeusheal_checkbox" id="startzeusheal" checked onchange="updateHidden(this)"> Do you want to Enable Zeus Healing at the Starting Location?<br>
+        <input type="hidden" name="startzeusheal" id="startzeusheal_truehidden" value="true">
+
+        <input type="checkbox" name="startvehiclerepair_checkbox" id="startvehiclerepair" checked onchange="updateHidden(this)"> Do you want to Enable Vehicle Repairing at the Starting Location?<br>
+        <input type="hidden" name="startvehiclerepair" id="startvehiclerepair_truehidden" value="true">
+
+        <input type="checkbox" name="startvehiclerearm_checkbox" id="startvehiclerearm" checked onchange="updateHidden(this)"> Do you want to Enable Vehicle Rearming at the Starting Location?<br>
+        <input type="hidden" name="startvehiclerearm" id="startvehiclerearm_truehidden" value="true">
+
+        <input type="checkbox" name="startvehiclerefuel_checkbox" id="startvehiclerefuel" checked onchange="updateHidden(this)"> Do you want to Enable Vehicle Refueling at the Starting Location?<br>
+        <input type="hidden" name="startvehiclerefuel"  id="startvehiclerefuel_truehidden" value="true">
+
+        <h2>Resupply Point Settings</h2>
+        <input type="checkbox" name="resupplypoint_checkbox" id="resupplypoint" checked onchange="updateHidden(this)"> Do you want to Enable a Resupply Point?<br>
+        <input type="hidden" name="resupplypoint" id="resupplypoint_truehidden" value="true">
+
+        <input type="checkbox" name="resupplyzeusheal_checkbox" id="resupplyzeusheal" checked onchange="updateHidden(this)"> Do you want to Enable Zeus Healing at the Resupply Point?<br>
+        <input type="hidden" name="resupplyzeusheal" id="resupplyzeusheal_truehidden" value="true">
+
+        <input type="checkbox" name="resupplyvehiclerepair_checkbox" id="resupplyvehiclerepair" checked onchange="updateHidden(this)"> Do you want to Enable Vehicle Repairing at the Resupply Point?<br>
+        <input type="hidden" name="resupplyvehiclerepair" id="resupplyvehiclerepair_truehidden" value="true">
+
+        <input type="checkbox" name="resupplyvehiclerearm_checkbox" id="resupplyvehiclerearm" checked onchange="updateHidden(this)"> Do you want to Enable Vehicle Rearming at the Resupply Point?<br>
+        <input type="hidden" name="resupplyvehiclerearm" id="resupplyvehiclerearm_truehidden" value="true">
+
+        <input type="checkbox" name="resupplyvehiclerefuel_checkbox" id="resupplyvehiclerefuel" checked onchange="updateHidden(this)"> Do you want to Enable Vehicle Refueling at the Resupply Point?<br>
+        <input type="hidden" name="resupplyvehiclerefuel" id="resupplyvehiclerefuel_truehidden" value="true">
+        <hr>
+        <div id="Message" style="color: red; display: none;">
+            <br>Once filled out.<br>
+        </div>
+
+        <button type="button" onclick="downloadConfig()">Download Config</button>
+        <!-- ...existing code... -->
+        <script>
+            const factionData = {
+                "NOT A VALID FACTION": {
+                    camoOptions: [
+                        { value: "", text: "Please select a faction first." }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg"
+                    }
+                },
+                "ALTIS ARMED FORCES": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "aaf_dbr", text: "DIGITAL BROWN" },
+                        { value: "aaf_dgr", text: "DIGITAL GREEN" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "aaf_dbr": "images/aaf-dbr.jpg",
+                        "aaf_dgr": "images/aaf-dgr.jpg"
+                    }
+                },
+                "ALTIS LAW ENFORCEMENT": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "aaf_apd", text: "POLICE DEPARTMENT" },
+                        { value: "aaf_asd", text: "SWAT DEPARTMENT" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "aaf_apd": "images/aaf-apd.jpg",
+                        "aaf_asd": "images/aaf-asd.jpg"
+                    }
+                },
+                "ARMY OF THE CZECH REPUBLIC": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "acr_des", text: "DESERT" },
+                        { value: "acr_wdl", text: "WOODLAND" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "acr_des": "images/acr-des.jpg",
+                        "acr_wdl": "images/acr-wdl.jpg"
+                    }
+                },
+                "AFRICAN ARMY": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "afr_arm", text: "DESERT" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "afr_arm": "images/afr-arm.jpg"
+                    }
+                },
+                "BRITISH ARMED FORCES": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "baf_mtp", text: "MTP" },
+                        { value: "baf_ddpm", text: "DDPM" },
+                        { value: "baf_dpm", text: "DPM" },
+                        { value: "baf_cdw", text: "COLD WAR" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "baf_mtp": "images/baf-mtp.jpg",
+                        "baf_ddpm": "images/baf-ddpm.jpg",
+                        "baf_dpm": "images/baf-dpm.jpg",
+                        "baf_cdw": "images/_notfound_.jpg"
+                    }
+                },
+                "BRITISH ARMED FORCES (3CB)": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "baf_3cb_ddpm", text: "DDPM" },
+                        { value: "baf_3cb_dpm", text: "DPM" },
+                        { value: "baf_3cb_mtp", text: "MTP" },
+                        { value: "baf_3cb_win", text: "WINTER" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "baf_3cb_ddpm": "images/baf-3cb-ddpm.jpg",
+                        "baf_3cb_dpm": "images/baf-3cb-dpm.jpg",
+                        "baf_3cb_mtp": "images/baf-3cb-mtp.jpg",
+                        "baf_3cb_win": "images/baf-3cb-win.jpg"
+                    }
+                },
+                "BRITISH SPECIAL FORCES": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "bsf_arc", text: "ARCTIC" },
+                        { value: "bsf_blk", text: "BLACK" },
+                        { value: "bsf_cov", text: "COVERT" },
+                        { value: "bsf_ct", text: "COUNTER TERRORISM" },
+                        { value: "bsf_des", text: "DESERT" },
+                        { value: "bsf_div", text: "DIVER" },
+                        { value: "bsf_mcam", text: "MULTICAM" },
+                        { value: "bsf_wdl", text: "WOODLAND" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "bsf_arc": "images/bsf-arc.jpg",
+                        "bsf_blk": "images/baf-blk.jpg",
+                        "bsf_cov": "images/baf-cov.jpg",
+                        "bsf_ct": "images/baf-ct.jpg",
+                        "bsf_des": "images/baf-des.jpg",
+                        "bsf_div": "images/baf-div.jpg",
+                        "bsf_mcam": "images/baf-mcam.jpg",
+                        "bsf_wdl": "images/baf-wdl.jpg"
+                    }
+                },
+                "BUNDESWEHR": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "ger_flk", text: "FLECKTARN" },
+                        { value: "ger_trp", text: "TROPENTARN" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "ger_flk": "images/ger-flk.jpg",
+                        "ger_trp": "images/ger-trp.jpg"
+                    }
+                },
+                "CANTON PROTOCOL STRATEGIC ALLIANCE TREATY": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "cst_hex", text: "BROWN HEX" },
+                        { value: "cst_gex", text: "GREEN HEX" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "cst_hex": "images/cst-hex.jpg",
+                        "cst_gex": "images/cst-gex.jpg"
+                    }
+                },
+                "GROUPE D'INTERVENTION DE LA GENDARMERIE NATIONALE (GIGN)": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "gign_blu", text: "XYI BLUE" },
+                        { value: "gign_cov", text: "XYI COVERT" },
+                        { value: "gign_gry", text: "XYI GREY" },
+                        { value: "gign_oli", text: "XYI OLIVE" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "gign_blu": "images/gign-blu.jpg",
+                        "gign_cov": "images/gign-cov.jpg",
+                        "gign_gry": "images/gign-gry.jpg",
+                        "gign_oli": "images/gign-oli.jpg"
+                    }
+                },
+                "ION SERVICES INCORPORATED": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "ion_blk", text: "BLACK" },
+                        { value: "ion_cov", text: "COVERT" },
+                        { value: "ion_des", text: "DESERT" },
+                        { value: "ion_wdl", text: "WOODLAND" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "ion_blk": "images/_notfound_.jpg",
+                        "ion_cov": "images/_notfound_.jpg",
+                        "ion_des": "images/_notfound_.jpg",
+                        "ion_wdl": "images/_notfound_.jpg"
+                    }
+                },
+                "LIVONIAN DEFENSE FORCE": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "ldf_geo", text: "GEOMETRIC (DLC: CONTACT)" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "ldf_geo": "images/_notfound_.jpg"
+                    }
+                },
+                "NORTH ATLANTIC TREATY ORGANIZATION (2020)": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "nato_mtp", text: "MTP" },
+                        { value: "nato_jun", text: "JUNGLE (DLC: APEX)" },
+                        { value: "nato_junwdl", text: "JUNGLE + WOODLAND (DLC: APEX+CONTACT)" },
+                        { value: "nato_wdl", text: "WOODLAND (DLC: CONTACT)" },
+                        { value: "nato_win", text: "WINTER" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "nato_mtp": "images/_notfound_.jpg",
+                        "nato_jun": "images/_notfound_.jpg",
+                        "nato_junwdl": "images/_notfound_.jpg",
+                        "nato_wdl": "images/_notfound_.jpg",
+                        "nato_win": "images/_notfound_.jpg"
+                    }
+                },
+                "NORTH ATLANTIC TREATY ORGANIZATION (2035)": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "nato_mtp_2035", text: "MTP" },
+                        { value: "nato_jun_2035", text: "JUNGLE (DLC: APEX)" },
+                        { value: "nato_junwdl_2035", text: "JUNGLE + WOODLAND (DLC: APEX+CONTACT)" },
+                        { value: "nato_wdl_2035", text: "WOODLAND (DLC: CONTACT)" },
+                        { value: "nato_win_2035", text: "WINTER" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "nato_mtp_2035": "images/_notfound_.jpg",
+                        "nato_jun_2035": "images/_notfound_.jpg",
+                        "nato_junwdl_2035": "images/_notfound_.jpg",
+                        "nato_wdl_2035": "images/_notfound_.jpg",
+                        "nato_win_2035": "images/_notfound_.jpg"
+                    }
+                },
+                "PEOPLE'S LIBERATION ARMY": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "pla_mar", text: "MARINE" },
+                        { value: "pla_uni", text: "UNIVERSAL" },
+                        { value: "pla_urb", text: "URBAN" },
+                        { value: "pla_wdl", text: "WOODLAND" },
+                        { value: "pla_win", text: "WINTER" },
+                        { value: "pla_cbrn", text: "CBRN" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "pla_mar": "images/_notfound_.jpg",
+                        "pla_uni": "images/_notfound_.jpg",
+                        "pla_urb": "images/_notfound_.jpg",
+                        "pla_wdl": "images/_notfound_.jpg",
+                        "pla_win": "images/_notfound_.jpg",
+                        "pla_cbrn": "images/_notfound_.jpg"
+                    }
+                },
+                "PRIVATE MILITARY CONTRACTORS": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "pmc_cso", text: "CASUAL" },
+                        { value: "pmc_wso", text: "WINTER" },
+                        { value: "pmc_div", text: "DIVER" },
+                        { value: "pmc_cso_usa", text: "US-BASED CASUAL" },
+                        { value: "pmc_wso_usa", text: "US-BASED WINTER" },
+                        { value: "pmc_cso_rus", text: "RUS-BASED CASUAL" },
+                        { value: "pmc_wso_rus", text: "RUS-BASED WINTER" },
+                        { value: "pmc_sdc", text: "PMC GROUP | Shadow Company" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "pmc_cso": "images/_notfound_.jpg",
+                        "pmc_wso": "images/_notfound_.jpg",
+                        "pmc_div": "images/_notfound_.jpg",
+                        "pmc_cso_usa": "images/_notfound_.jpg",
+                        "pmc_wso_usa": "images/_notfound_.jpg",
+                        "pmc_cso_rus": "images/_notfound_.jpg",
+                        "pmc_wso_rus": "images/_notfound_.jpg",
+                        "pmc_sdc": "images/_notfound_.jpg"
+                    }
+                },
+                "RUSSIAN ARMED FORCES": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "rus_blk", text: "BLACK" },
+                        { value: "rus_des", text: "DESERT" },
+                        { value: "rus_div", text: "DIVER" },
+                        { value: "rus_emr", text: "SUMMER EMR" },
+                        { value: "rus_win", text: "WINTER" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "rus_blk": "images/_notfound_.jpg",
+                        "rus_des": "images/_notfound_.jpg",
+                        "rus_div": "images/_notfound_.jpg",
+                        "rus_emr": "images/_notfound_.jpg",
+                        "rus_win": "images/_notfound_.jpg"
+                    }
+                },
+                "RUSSIAN ARMED FORCES (RATNIK)": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "rus_rat_blk", text: "BLACK" },
+                        { value: "rus_rat_des", text: "DESERT" },
+                        { value: "rus_rat_div", text: "DIVER" },
+                        { value: "rus_rat_mcam", text: "MULTICAM" },
+                        { value: "rus_rat_sum", text: "SUMMER" },
+                        { value: "rus_rat_win", text: "WINTER" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "rus_rat_blk": "images/_notfound_.jpg",
+                        "rus_rat_des": "images/_notfound_.jpg",
+                        "rus_rat_div": "images/_notfound_.jpg",
+                        "rus_rat_mcam": "images/_notfound_.jpg",
+                        "rus_rat_sum": "images/_notfound_.jpg",
+                        "rus_rat_win": "images/_notfound_.jpg"
+                    }
+                },
+                "RUSSIAN SPECIAL FORCES": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "rus_blk", text: "This faction is not ready yet." },
+                        { value: "rus_blk", text: "This faction is not ready yet." },
+                        { value: "rus_blk", text: "This faction is not ready yet." },
+                        { value: "rus_blk", text: "This faction is not ready yet." },
+                        { value: "rus_blk", text: "This faction is not ready yet." }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "rus_blk": "images/_notfound_.jpg",
+                        "rus_des": "images/_notfound_.jpg",
+                        "rus_div": "images/_notfound_.jpg",
+                        "rus_emr": "images/_notfound_.jpg",
+                        "rus_win": "images/_notfound_.jpg"
+                    }
+                },
+                "SCP FOUNDATION": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "scp_mtf", text: "MOBLE TASK FORCE" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "scp_mtf": "images/_notfound_.jpg"
+                    }
+                },
+                "SYNDIKAT": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "syn_cri", text: "Criminal" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "syn_cri": "images/_notfound_.jpg"
+                    }
+                },
+                "TAKISTAN": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "tak_isr", text: "TAKISTAN INSURGENTS" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "tak_isr": "images/_notfound_.jpg"
+                    }
+                },
+                "UNITED NATIONS": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "un_baf_ddpm", text: "BRITISH DDPM" },
+                        { value: "un_baf_dpm", text: "BRITISH DPM" },
+                        { value: "un_baf_mtp", text: "BRITISH MTP" },
+                        { value: "un_usa_ocp", text: "AMERICAN OCP" },
+                        { value: "un_usa_ucp", text: "AMERICAN UCP" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "un_baf_ddpm": "images/_notfound_.jpg",
+                        "un_baf_dpm": "images/_notfound_.jpg",
+                        "un_baf_mtp": "images/_notfound_.jpg",
+                        "un_usa_ocp": "images/_notfound_.jpg",
+                        "un_usa_ucp": "images/_notfound_.jpg"
+                    }
+                },
+                "UNITED STATES ARMY CORPS": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "usa_ocp", text: "OCP" },
+                        { value: "usa_ucp", text: "UCP" },
+                        { value: "usa_div", text: "DIVER" },
+                        { value: "usa_hecu", text: "HECU" },
+                        { value: "usa_cdw", text: "COLD WAR" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "usa_ocp": "images/_notfound_.jpg",
+                        "usa_ucp": "images/_notfound_.jpg",
+                        "usa_div": "images/_notfound_.jpg",
+                        "usa_hecu": "images/_notfound_.jpg",
+                        "usa_cdw": "images/_notfound_.jpg"
+                    }
+                },
+                "UNITED STATES MARSOC": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "usa_sbr", text: "DESERT" },
+                        { value: "usa_sgr", text: "WOODLAND" },
+                        { value: "usa_mpd", text: "MARPART DESERT" },
+                        { value: "usa_mpw", text: "MARPART WOODLAND" },
+                        { value: "usa_m81", text: "M81" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "usa_sbr": "images/_notfound_.jpg",
+                        "usa_sgr": "images/_notfound_.jpg"
+                    }
+                },
+                "HL LAMBDA RESISTANCE": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "rus_blk", text: "This faction is not ready yet." },
+                        { value: "rus_blk", text: "This faction is not ready yet." },
+                        { value: "rus_blk", text: "This faction is not ready yet." },
+                        { value: "rus_blk", text: "This faction is not ready yet." },
+                        { value: "rus_blk", text: "This faction is not ready yet." }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "rus_blk": "images/_notfound_.jpg",
+                        "rus_des": "images/_notfound_.jpg",
+                        "rus_div": "images/_notfound_.jpg",
+                        "rus_emr": "images/_notfound_.jpg",
+                        "rus_win": "images/_notfound_.jpg"
+                    }
+                },
+                "HL UNIVERSAL UNION": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "hl2_cp", text: "CIVIL PROTECTION" },
+                        { value: "hl2_ota", text: "OVERWATCH TRANSHUMAN ARMS" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "hl2_cp": "images/_notfound_.jpg",
+                        "hl2_ota": "images/_notfound_.jpg"
+                    }
+                },
+                "HALO UNITED NATIONS SPACE COMMAND": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "hal_unsc_odst", text: "ODST" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "hal_unsc_odst": "images/_notfound_.jpg"
+                    }
+                },
+                "SW CONFEDERACY OF INDEPENDENT SYSTEMS": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "rus_blk", text: "This faction is not ready yet." },
+                        { value: "rus_blk", text: "This faction is not ready yet." },
+                        { value: "rus_blk", text: "This faction is not ready yet." },
+                        { value: "rus_blk", text: "This faction is not ready yet." },
+                        { value: "rus_blk", text: "This faction is not ready yet." }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "rus_blk": "images/_notfound_.jpg",
+                        "rus_des": "images/_notfound_.jpg",
+                        "rus_div": "images/_notfound_.jpg",
+                        "rus_emr": "images/_notfound_.jpg",
+                        "rus_win": "images/_notfound_.jpg"
+                    }
+                },
+                "SW GALACTIC EMPIRE": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "rus_blk", text: "This faction is not ready yet." },
+                        { value: "rus_blk", text: "This faction is not ready yet." },
+                        { value: "rus_blk", text: "This faction is not ready yet." },
+                        { value: "rus_blk", text: "This faction is not ready yet." },
+                        { value: "rus_blk", text: "This faction is not ready yet." }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "rus_blk": "images/_notfound_.jpg",
+                        "rus_des": "images/_notfound_.jpg",
+                        "rus_div": "images/_notfound_.jpg",
+                        "rus_emr": "images/_notfound_.jpg",
+                        "rus_win": "images/_notfound_.jpg"
+                    }
+                },
+                "SW GALACTIC REPUBLIC": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "sw_gar_101_p2", text: "101ST DOOM COMPANY (P2)" },
+                        { value: "sw_gar_212_p1", text: "212TH ATTACK BATTLION (P1)" },
+                        { value: "sw_gar_212_p2", text: "212TH ATTACK BATTLION (P2)" },
+                        { value: "sw_gar_212_snow", text: "212TH ATTACK BATTLION (SNOW)" },
+                        { value: "sw_gar_501_p1", text: "501ST LEGION (P1)" },
+                        { value: "sw_gar_501_p2", text: "501ST LEGION (P2)" },
+                        { value: "sw_gar_501_snow", text: "501ST LEGION (SNOW)" },
+                        { value: "sw_gar_ctc_p1", text: "CLONE TROOPER CORPS (P1)" },
+                        { value: "sw_gar_ctc_p2", text: "CLONE TROOPER CORPS (P2)" },
+                        { value: "sw_gar_rpc_delta", text: "DELTA SQUAD" },
+                        { value: "sw_gar_rpc_omega", text: "OMEGA SQUAD" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "sw_gar_101_p2": "images/_notfound_.jpg",
+                        "sw_gar_212_p1": "images/_notfound_.jpg",
+                        "sw_gar_212_p2": "images/_notfound_.jpg",
+                        "sw_gar_212_snow": "images/_notfound_.jpg",
+                        "sw_gar_501_p1": "images/_notfound_.jpg",
+                        "sw_gar_501_p2": "images/_notfound_.jpg",
+                        "sw_gar_501_snow": "images/_notfound_.jpg",
+                        "sw_gar_ctc_p1": "images/_notfound_.jpg",
+                        "sw_gar_ctc_p2": "images/_notfound_.jpg",
+                        "sw_gar_rpc_delta": "images/_notfound_.jpg",
+                        "sw_gar_rpc_omega": "images/_notfound_.jpg"
+                    }
+                },
+                "SW REBEL ALLIANCE": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "rus_blk", text: "This faction is not ready yet." },
+                        { value: "rus_blk", text: "This faction is not ready yet." },
+                        { value: "rus_blk", text: "This faction is not ready yet." },
+                        { value: "rus_blk", text: "This faction is not ready yet." },
+                        { value: "rus_blk", text: "This faction is not ready yet." }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "rus_blk": "images/_notfound_.jpg",
+                        "rus_des": "images/_notfound_.jpg",
+                        "rus_div": "images/_notfound_.jpg",
+                        "rus_emr": "images/_notfound_.jpg",
+                        "rus_win": "images/_notfound_.jpg"
+                    }
+                },
+                "WH ARMY OF THE EMPIRE": {
+                    camoOptions: [
+                        { value: "", text: "Please select a camo." },
+                        { value: "whf_emp", text: "INFANTRY" }
+                    ],
+                    images: {
+                        "": "images/_ares_.jpg",
+                        "whf_emp": "images/_notfound_.jpg"
+                    }
+                }
+            };
+
+            const modLinks = {
+                "BRITISH ARMED FORCES (3CB)": "https://steamcommunity.com/sharedfiles/filedetails/?id=3295378128",
+                "GROUPE D'INTERVENTION DE LA GENDARMERIE NATIONALE (GIGN)": "https://steamcommunity.com/sharedfiles/filedetails/?id=3162772962",
+                "PEOPLE'S LIBERATION ARMY": "https://steamcommunity.com/sharedfiles/filedetails/?id=3349224742",
+                "SCP FOUNDATION": "https://steamcommunity.com/sharedfiles/filedetails/?id=2957127204",
+                "HL LAMBDA RESISTANCE": "https://steamcommunity.com/sharedfiles/filedetails/?id=2842058429",
+                "HL UNIVERSAL UNION": "https://steamcommunity.com/sharedfiles/filedetails/?id=2842058429",
+                "HALO UNITED NATIONS SPACE COMMAND": "https://steamcommunity.com/sharedfiles/filedetails/?id=769440155",
+                "SW CONFEDERACY OF INDEPENDENT SYSTEMS": "https://steamcommunity.com/sharedfiles/filedetails/?id=3049257517",
+                "SW GALACTIC EMPIRE": "https://steamcommunity.com/sharedfiles/filedetails/?id=3049257517",
+                "SW GALACTIC REPUBLIC": "https://steamcommunity.com/sharedfiles/filedetails/?id=3049257517",
+                "SW REBEL ALLIANCE": "https://steamcommunity.com/sharedfiles/filedetails/?id=3049257517",
+                "WH ARMY OF THE EMPIRE": "https://steamcommunity.com/sharedfiles/filedetails/?id=2857072858"
+            };
+              
+        function updateCamoOptions() {
+            console.log("updateCamoOptions called");
+            const faction = document.getElementById("faction").value;
+            console.log("Selected faction:", faction);
+            const camoSelect = document.getElementById("camo");
+            const modMessage = document.getElementById("modMessage");
+            const modLink = document.getElementById("modLink");
+            camoSelect.innerHTML = "";
+
+            if (factionData[faction]) {
+                factionData[faction].camoOptions.forEach(option => {
+                    const opt = document.createElement("option");
+                    opt.value = option.value;
+                    opt.text = option.text;
+                    camoSelect.add(opt);
+                });
+
+                // Display message and link for specific factions
+                if (modLinks[faction]) {
+                    modMessage.style.display = "block";
+                    modLink.href = modLinks[faction];
+                } else {
+                    modMessage.style.display = "none";
+                }                
+            } else {
+                const opt = document.createElement("option");
+                opt.value = "";
+                opt.text = "You must select a faction first.";
+                camoSelect.add(opt);
+                modMessage.style.display = "none";
+                console.log("No camo options found for faction:", faction);
+            }
+            updateCamoPhoto();
+        }
+
+        function updateCamoPhoto() {
+            const faction = document.getElementById("faction").value;
+            const camo = document.getElementById("camo").value;
+            console.log("updateCamoPhoto called with:", faction, camo);
+
+            const defaultImage = "images/_notfound_.jpg";
+            const photo = document.getElementById('factionCamoPhoto');
+
+            if (!photo) {
+                console.error("Element with ID 'factionCamoPhoto' not found.");
+                return;
+            }
+
+            if (factionData[faction] && factionData[faction].images[camo]) {
+                photo.src = factionData[faction].images[camo];
+                console.log("Setting Image:", factionData[faction].images[camo]);
+            } else {
+                photo.src = defaultImage;
+                console.log("Using default image:", defaultImage);
+            }
+
+            photo.style.display = 'block';
+        }
+
+        function openImageInNewTab() {
+            const photo = document.getElementById('factionCamoPhoto');
+            if (photo && photo.src) {
+                window.open(photo.src, '_blank');
+            }
+        }
+
+        function updateHidden(checkbox) {
+            const hiddenInputId = checkbox.id + "_hidden";
+            const hiddenInput = document.getElementById(hiddenInputId);
+            if (hiddenInput) {
+                hiddenInput.value = checkbox.checked ? "1" : "0";
+            }
+            const hiddenTrueInputId = checkbox.id + "_truehidden";
+            const hiddenTrueInput = document.getElementById(hiddenTrueInputId);
+            if (hiddenTrueInput) {
+                hiddenTrueInput.value = checkbox.checked ? "true" : "false";
+            }
+
+            // Toggle visibility of scope restrictions dropdown
+            if (checkbox.id === "scopes") {
+                const scopeRestrictionsContainer = document.getElementById("scopeRestrictionsContainer");
+                scopeRestrictionsContainer.style.display = checkbox.checked ? "block" : "none";
+
+                // Reset scope restriction values to 0 if scopes is unchecked
+                if (!checkbox.checked) {
+                    document.getElementById("CHECK_SCOPES_CQB").value = "0";
+                    document.getElementById("CHECK_SCOPES_RUS").value = "0";
+                    document.getElementById("CHECK_SCOPES_RQB").value = "0";
+                }
+            }
+        }
+
+        function updateScopeRestrictions() {
+            const restriction = document.getElementById("scopeRestrictions").value;
+
+            // Reset all hidden inputs to 0
+            document.getElementById("CHECK_SCOPES_CQB").value = "0";
+            document.getElementById("CHECK_SCOPES_RUS").value = "0";
+            document.getElementById("CHECK_SCOPES_RQB").value = "0";
+
+            // Update the corresponding hidden input based on the selected restriction
+            if (restriction === "cqb") {
+                document.getElementById("CHECK_SCOPES_CQB").value = "1";
+            } else if (restriction === "rus") {
+                document.getElementById("CHECK_SCOPES_RUS").value = "1";
+            } else if (restriction === "cqb+rus") {
+                document.getElementById("CHECK_SCOPES_RQB").value = "1";
+            }
+        }
+
+        function downloadConfig() {
+            const ammo = document.getElementById("ammo_hidden").value;
+            const nvg = document.getElementById("nvg_hidden").value;
+            const gps = document.getElementById("gps_hidden").value;
+            const scopes = document.getElementById("scopes_hidden").value;
+            const scopescqb = document.getElementById("CHECK_SCOPES_CQB").value;
+            const scopesrus = document.getElementById("CHECK_SCOPES_RUS").value;
+            const scopesrqb = document.getElementById("CHECK_SCOPES_RQB").value;
+            const lasers = document.getElementById("lasers_hidden").value;
+            const muzzles = document.getElementById("muzzles_hidden").value;
+            const grips = document.getElementById("grips_hidden").value;
+            const resupplybags = document.getElementById("resupplybags_hidden").value;
+            const middleeast = document.getElementById("middleeast_hidden").value;
+            const gasmasks = document.getElementById("gasmasks_hidden").value;
+            const food = document.getElementById("food_hidden").value;
+            const dispos = document.getElementById("dispos_hidden").value;
+
+            const startfactionchanging = document.getElementById("startfactionchanging_truehidden").value;
+            const startzeusheal = document.getElementById("startzeusheal_truehidden").value;
+            const startvehiclerepair = document.getElementById("startvehiclerepair_truehidden").value;
+            const startvehiclerearm = document.getElementById("startvehiclerearm_truehidden").value;
+            const startvehiclerefuel = document.getElementById("startvehiclerefuel_truehidden").value;
+
+            const resupplypoint = document.getElementById("resupplypoint_truehidden").value;
+            const resupplyzeusheal = document.getElementById("resupplyzeusheal_truehidden").value;
+            const resupplyvehiclerepair = document.getElementById("resupplyvehiclerepair_truehidden").value;
+            const resupplyvehiclerearm = document.getElementById("resupplyvehiclerearm_truehidden").value;
+            const resupplyvehiclerefuel = document.getElementById("resupplyvehiclerefuel_truehidden").value;
+            
+            const faction = document.getElementById("faction").value;
+            const camo = document.getElementById("camo").value;
+
+
+            const configContent = `//-----------------------------------------------------------------------------\\
+` +
+            `//  Welcome to the Ares Defence Services Mission Config							\\
+` +
+            `//  																			 \\
+` +
+            `//  Below you'll find all available settings you can change for your mission.	  \\
+` +
+            `//  Including your arsenal's item availability such as NVGs and Scopes.			   \\
+` +
+            `//  You'll find settings for a Resupply point you can place down on your mission.	\\
+` +
+            `//  	 																			 \\
+` +
+            `//  To set a faction, select how many camos or factions you want to choose and		  \\
+` +
+            `//  then edit the factions with their name and their file path. Change the RAPATH 	   \\
+` +
+            `//  (xxx_xxx) to the relative camo/faction you want to choose. 		\\
+` +
+            `//  																		             \\
+` +
+            `//  If you need any assistance with your config, please contact a Server Admin.		      \\
+` +
+            `//-----------------------------------------------------------------------------------------\\
+` +
+            `// Do you want to enable Simple Ammunition? (1 = Enabled | 0 = Disabled)
+` +
+            `#define CHECK_AMMO ${ammo}
+` +
+            `// Do you want Nightvision Goggles Available? (1 = Enabled | 0 = Disabled)
+` +
+            `#define CHECK_NVGS ${nvg}
+` +
+            `// Do you want GPS Devices Available? (1 = Enabled | 0 = Disabled)
+` +
+            `#define CHECK_GPS ${gps}
+` +
+            `// Do you want Scope Items Available? (1 = Enabled | 0 = Disabled)
+` +
+            `#define CHECK_SCOPES ${scopes}
+` +
+            `#define CHECK_SCOPES_CQB ${scopescqb}
+` +
+            `#define CHECK_SCOPES_RUS ${scopesrus}
+` +
+            `#define CHECK_SCOPES_RQB ${scopesrqb}
+` +
+            `// Do you want Laser / Flashlight Items Available? (1 = Enabled | 0 = Disabled)
+` +
+            `#define CHECK_LASERSIGHTS ${lasers}
+` +
+            `// Do you want Muzzle Items Available? (1 = Enabled | 0 = Disabled)
+` +
+            `#define CHECK_MUZZLE ${muzzles}
+` +
+            `// Do you want Grip Items Available? (1 = Enabled | 0 = Disabled)
+` +
+            `#define CHECK_BIPODS ${grips}
+` +
+            `// Do you want Resupply Bags Available? (1 = Enabled | 0 = Disabled)
+` +
+            `#define CHECK_RESUPPLYBAGS ${resupplybags}
+` +
+            `// Do you want Middle East Cosmetics Available? (1 = Enabled | 0 = Disabled)
+` +
+            `#define CHECK_MIDDLEEAST ${middleeast}
+` +
+            `// Should Facewear only be Respirators? (1 = Enabled | 0 = Disabled)
+` +
+            `#define CHECK_GASMASKS ${gasmasks}
+` +
+            `// Do you want Food Items Available? (1 = Enabled | 0 = Disabled)
+` +
+            `#define CHECK_FOODITEMS ${food}
+` +
+            `// Do you want make Disposable Launchers available for everyone? (1 = Enabled | 0 = Disabled)
+` +
+            `#define CHECK_UNRESTRICTLAT ${dispos}
+` +
+            `//-----------------------------------------------------------------------------\\
+` +
+            `//  RoleArsenal Additional Options												\\
+` +
+            `//-------------------------------------------------------------------------------\\
+` +
+            `// Enable Camo/Faction Changing
+` +
+            `RAFACTIONCHANGING 			= ${startfactionchanging};
+` +
+            `// Enable Zeus Healing
+` +
+            `ROLEARSENALHEALING			= ${startzeusheal};
+` +
+            `// Enable Vehicle Repairing
+` +
+            `ROLEARSENALVICREP 			= ${startvehiclerepair};
+` +
+            `// Enable Vehicle Rearming
+` +
+            `ROLEARSENALVICREA 			= ${startvehiclerearm};	
+` +
+            `// Enable Vehicle Refueling
+` +
+            `ROLEARSENALVICREF 			= ${startvehiclerefuel};
+` +
+            `//-----------------------------------------------------------------------------\\
+` +
+            `//  RoleArsenal Resupply Point													\\
+` +
+            `//-------------------------------------------------------------------------------\\
+` +
+            `// Enable Resupply Point: Base
+` +
+            `ROLEARSENALRESUPPLY			= ${resupplypoint};
+` +
+            `// Enable Resupply Point: ACE Heal
+` +
+            `ROLEARSENALRESUPPLYHEAL		= ${resupplyzeusheal};
+` +
+            `// Enable Resupply Point: Vehicle Repair
+` +
+            `ROLEARSENALRESUPPLYREPAIR 	= ${resupplyvehiclerepair};
+` +
+            `// Enable Resupply Point: Vehicle Rearm
+` +
+            `ROLEARSENALRESUPPLYREARM 	= ${resupplyvehiclerearm};
+` +
+            `// Enable Resupply Point: Vehicle Refuel
+` +
+            `ROLEARSENALRESUPPLYREFUEL 	= ${resupplyvehiclerefuel};
+` +
+            `//-----------------------------------------------------------------------------\\
+` +
+            `//  Camo/Faction Loadouts														\\
+` +
+            `//  To set a faction, select how many camos or factions you want to choose and	 \\
+` +
+            `//  then edit the factions with their name and their file path. Change the RAPATH \\
+` +
+            `//  (PATHCODE: xxx_xxx) to the relative camo/faction you want to choose. \\
+` +
+            `//----------------------------------------------------------------------------------\\
+` +
+            `// Camo/Faction One
+` +
+            `RAENABLEONE 				= true;	
+` +
+            `RANAMEONE 					= "${faction}";								
+` +
+            `RAPATHONE 					= "${camo}"; 		
+` +
+            `//---------------------------------------------------\\
+` +
+            `// Camo/Faction Two
+` +
+            `RAENABLETWO 				= false;	
+` +
+            `RANAMETWO 					= "factionname2"; 			
+` +
+            `RAPATHTWO 					= "factioncode2";		
+` +
+            `//---------------------------------------------------\\
+` +
+            `// Camo/Faction Three
+` +
+            `RAENABLETHREE 				= false;   
+` +
+            `RANAMETHREE 				= "factionname3"; 			
+` +
+            `RAPATHTHREE 				= "factioncode3"; 	
+` +
+            `//---------------------------------------------------\\
+` +
+            `// Camo/Faction Four
+` +
+            `RAENABLEFOUR 				= false;
+` +
+            `RANAMEFOUR 					= "factionname4"; 			
+` +
+            `RAPATHFOUR 					= "factioncode4"; 		
+` +
+            `//---------------------------------------------------\\
+` +
+            `// Camo/Faction Five
+` +
+            `RAENABLEFIVE 				= false;
+` +
+            `RANAMEFIVE 					= "factionname5"; 			
+` +
+            `RAPATHFIVE 					= "factioncode5";		
+` +
+            `//---------------------------------------------------\\
+` +
+            `// Camo/Faction Six
+` +
+            `RAENABLESIX					= false;
+` +
+            `RANAMESIX 					= "factionname6";				
+` +
+            `RAPATHSIX 					= "factioncode6"; 
+` +
+            `//---------------------------------------------------\\`;
+            
+            const blob = new Blob([configContent], { type: "text/plain" });
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "config_rolearsenal.sqf";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        function precacheImages() {
+            for (const faction in factionData) {
+                for (const camo in factionData[faction].images) {
+                    const img = new Image();
+                    img.src = factionData[faction].images[camo];
+                }
+            }
+        }
+
+        // Initialize camo options and precache images on page load
+        document.addEventListener("DOMContentLoaded", () => {
+            updateCamoOptions();
+            updateCamoPhoto();
+            precacheImages();
+        });
+    </script>
+</body>
+</html>
