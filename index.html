@@ -64,7 +64,10 @@
         </div>
     
         <h2>Weaponry Attachments</h2>
-        <input type="checkbox" name="scopes_checkbox" id="scopes" checked onchange="updateHidden(this)"> Do you want Scope Items Available?<br>
+        <label for="scopes">
+            <input type="checkbox" name="scopes_checkbox" id="scopes" checked onchange="updateHidden(this)">
+            Do you want Scope Items Available?
+        </label>
         <input type="hidden" name="scopes" id="scopes_hidden" value="1">
 
         <!-- Dropdown for scope restrictions -->
