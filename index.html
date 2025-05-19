@@ -121,13 +121,9 @@
         <input type="hidden" name="gasmasks" id="gasmasks_hidden" value="0">
 
         <h2>RoleArsenal Settings</h2>
-        <label for="startrespawnloadout_select">What equipment should the player have upon respawn?</label>
-        <select name="startrespawnloadout_select" id="startrespawnloadout_select" onchange="updateStartRespawnLoadout()">
-            <option value="false">Keep Death Loadout upon death</option>
-            <option value="true" selected>Give Resupply Loadout upon death</option>
-        </select>
-        <input type="hidden" name="startrespawnloadout" id="startrespawnloadout_truehidden" value="true"> 
-
+        <input type="checkbox" name="startrespawnloadout_checkbox" id="startrespawnloadout" checked onchange="updateHidden(this)"> Should players be given their resupply loadout upon death? (Untick if you want them to keep their death loadout)<br>
+        <input type="hidden" name="startrespawnloadout" id="startrespawnloadout_truehidden" value="true">
+ 
         <input type="checkbox" name="startfactionchanging_checkbox" id="startfactionchanging" checked onchange="updateHidden(this)"> Do you want to Enable Faction/Camo Changing at the Starting Location?<br>
         <input type="hidden" name="startfactionchanging" id="startfactionchanging_truehidden" value="true">
 
@@ -775,12 +771,6 @@
             if (photo && photo.src) {
                 window.open(photo.src, '_blank');
             }
-        }
-
-        function updateStartRespawnLoadout() {
-            const select = document.getElementById("startrespawnload_select");
-            const hidden = document.getElementById("startrespawnload_truehidden");
-            hidden.value = select.value;
         }
 
         function updateHidden(checkbox) {
