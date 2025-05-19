@@ -121,6 +121,13 @@
         <input type="hidden" name="gasmasks" id="gasmasks_hidden" value="0">
 
         <h2>RoleArsenal Settings</h2>
+        <label for="startrespawnloadout_select">What equipment should the player have upon respawn?</label>
+        <select name="startrespawnloadout_select" id="startrespawnloadout_select" onchange="updateStartRespawnLoadout()">
+            <option value="false">Keep Death Loadout upon death</option>
+            <option value="true" selected>Give Resupply Loadout upon death</option>
+        </select>
+        <input type="hidden" name="startrespawnloadout" id="startrespawnloadout_truehidden" value="true"> 
+
         <input type="checkbox" name="startfactionchanging_checkbox" id="startfactionchanging" checked onchange="updateHidden(this)"> Do you want to Enable Faction/Camo Changing at the Starting Location?<br>
         <input type="hidden" name="startfactionchanging" id="startfactionchanging_truehidden" value="true">
 
@@ -770,6 +777,12 @@
             }
         }
 
+        function updateStartRespawnLoadout() {
+            const select = document.getElementById("startrespawnload_select");
+            const hidden = document.getElementById("startrespawnload_truehidden");
+            hidden.value = select.value;
+        }
+
         function updateHidden(checkbox) {
             const hiddenInputId = checkbox.id + "_hidden";
             const hiddenInput = document.getElementById(hiddenInputId);
@@ -831,6 +844,7 @@
             const food = document.getElementById("food_hidden").value;
             const dispos = document.getElementById("dispos_hidden").value;
 
+            const startrespawnloadout = document.getElementById("startrespawnloadout_truehidden").value;
             const startfactionchanging = document.getElementById("startfactionchanging_truehidden").value;
             const startzeusheal = document.getElementById("startzeusheal_truehidden").value;
             const startvehiclerepair = document.getElementById("startvehiclerepair_truehidden").value;
@@ -932,6 +946,10 @@
             `//  RoleArsenal Additional Options												\\
 ` +
             `//-------------------------------------------------------------------------------\\
+` +
+            `// Should players respawn with their resupply loadout or their death loadout? (true = Resupply | false = Death)
+` +
+            `CHECK_RESPAWNLOADOUT 			= ${startrespawnloadout};
 ` +
             `// Enable Camo/Faction Changing
 ` +
