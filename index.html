@@ -109,8 +109,14 @@
         <input type="checkbox" name="food_checkbox" id="food" onchange="updateHidden(this)"> Do you want Food Items Available?<br>
         <input type="hidden" name="food" id="food_hidden" value="0">
 
-        <input type="checkbox" name="food_checkbox" id="dispos" onchange="updateHidden(this)"> Do you want make Disposable Launchers available for everyone?<br>
+        <input type="checkbox" name="dispos_checkbox" id="dispos" onchange="updateHidden(this)"> Do you want make Disposable Launchers available for everyone?<br>
         <input type="hidden" name="dispos" id="dispos_hidden" value="0">
+
+        <input type="checkbox" name="parachute_checkbox" id="parachute" onchange="updateHidden(this)"> Do you want Parachutes Available?<br>
+        <input type="hidden" name="parachute" id="parachute_hidden" value="0">
+
+        <input type="checkbox" name="diving_checkbox" id="diving" onchange="updateHidden(this)"> Do you want Diving Equipment Available?<br>
+        <input type="hidden" name="diving" id="diving_hidden" value="0">
 
 
         <h2>Cosmetics</h2>
@@ -835,6 +841,8 @@
             const gasmasks = document.getElementById("gasmasks_hidden").value;
             const food = document.getElementById("food_hidden").value;
             const dispos = document.getElementById("dispos_hidden").value;
+            const parachute = document.getElementById("parachute_hidden").value;
+            const diving = document.getElementById("diving_hidden").value;
 
             const startrespawnloadout = document.getElementById("startrespawnloadout_truehidden").value;
             const startfactionchanging = document.getElementById("startfactionchanging_truehidden").value;
@@ -932,6 +940,14 @@
             `// Do you want make Disposable Launchers available for everyone? (1 = Enabled | 0 = Disabled)
 ` +
             `#define CHECK_UNRESTRICTLAT ${dispos}
+` +
+            `// Do you want Parachutes Available? (1 = Enabled | 0 = Disabled)
+` +
+            `#define CHECK_PARACHUTE ${parachute}
+` +
+            `// Do you want Diving Gear Available? (1 = Enabled | 0 = Disabled)
+` +
+            `#define CHECK_DIVINGGEAR ${diving}
 ` +
             `//-----------------------------------------------------------------------------\\
 ` +
