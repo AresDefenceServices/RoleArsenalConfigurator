@@ -75,9 +75,9 @@
             <label for="scopeRestrictions">Select Scope Restriction:</label>
             <select name="scopeRestrictions" id="scopeRestrictions" onchange="updateScopeRestrictions()">
                 <option value="none">No Restrictions</option>
-                <option value="cqb">CQB Only</option>
-                <option value="rus">Russian Only</option>
-                <option value="cqb+rus">CQB & Russian Only</option>
+                <option value="scope_cqb">CQB Only</option>
+                <option value="scope_rus">Russian Only</option>
+                <option value="scope_cqb+rus">CQB & Russian Only</option>
             </select>
         </div>
         <input type="hidden" id="CHECK_SCOPES_CQB" value="0">
@@ -94,6 +94,23 @@
         <input type="hidden" name="grips" id="grips_hidden" value="1">
 
         <h2>Equipment</h2>
+
+        <label for="grenadeType">What types of Grenades do you want to use? <b>(This doesn't do anything yet!)</b></label>
+        <select name="grenadeType" id="grenadeType" onchange="updateGrenadeType()">
+            <option value="grenade_gen">Generic</option>
+            <option value="grenade_rus">Russian</option>
+            <option value="grenade_pol">Police</option>
+        </select>
+        <input type="hidden" id="CHECK_GRENADES_GEN" value="1">
+        <input type="hidden" id="CHECK_GRENADES_RUS" value="0">
+        <input type="hidden" id="CHECK_GRENADES_POL" value="0">
+
+        <input type="checkbox" name="dispos_checkbox" id="dispos" onchange="updateHidden(this)"> Do you want make Disposable Launchers available for everyone?<br>
+        <input type="hidden" name="dispos" id="dispos_hidden" value="0">
+
+        <input type="checkbox" name="resupplybags_checkbox" id="resupplybags" onchange="updateHidden(this)"> Do you want Invisible Resupply Bags Available for everyone?<br>
+        <input type="hidden" name="resupplybags" id="resupplybags_hidden" value="0">
+
         <input type="checkbox" name="nvg_checkbox" id="ammo" onchange="updateHidden(this)"> Do you want to enable Simple Ammunition?<br>
         <input type="hidden" name="ammo" id="ammo_hidden" value="0">
  
@@ -103,14 +120,10 @@
         <input type="checkbox" name="gps_checkbox" id="gps" checked onchange="updateHidden(this)"> Do you want GPS Devices Available?<br>
         <input type="hidden" name="gps" id="gps_hidden" value="1">
 
-        <input type="checkbox" name="resupplybags_checkbox" id="resupplybags" onchange="updateHidden(this)"> Do you want Invisible Resupply Bags Available for everyone?<br>
-        <input type="hidden" name="resupplybags" id="resupplybags_hidden" value="0">
 
         <input type="checkbox" name="food_checkbox" id="food" onchange="updateHidden(this)"> Do you want Food Items Available?<br>
         <input type="hidden" name="food" id="food_hidden" value="0">
 
-        <input type="checkbox" name="dispos_checkbox" id="dispos" onchange="updateHidden(this)"> Do you want make Disposable Launchers available for everyone?<br>
-        <input type="hidden" name="dispos" id="dispos_hidden" value="0">
 
         <input type="checkbox" name="parachute_checkbox" id="parachute" onchange="updateHidden(this)"> Do you want Parachutes Available?<br>
         <input type="hidden" name="parachute" id="parachute_hidden" value="0">
@@ -118,13 +131,17 @@
         <input type="checkbox" name="diving_checkbox" id="diving" onchange="updateHidden(this)"> Do you want Diving Equipment Available?<br>
         <input type="hidden" name="diving" id="diving_hidden" value="0">
 
-
         <h2>Cosmetics</h2>
         <input type="checkbox" name="middleeast_checkbox" id="middleeast" onchange="updateHidden(this)"> Do you want Middle East Cosmetics Available?<br>
         <input type="hidden" name="middleeast" id="middleeast_hidden" value="0">
 
         <input type="checkbox" name="gasmasks_checkbox" id="gasmasks" onchange="updateHidden(this)"> Should Facewear only be Respirators?<br>
         <input type="hidden" name="gasmasks" id="gasmasks_hidden" value="0">
+
+        <h2>Death Settings</h2>
+
+        <input type="checkbox" name="startrespawnloadout_checkbox" id="startrespawnloadout" onchange="updateHidden(this)"> Should players be given their resupply kit on death?<br>(Untick if you want them to keep their death loadout)<br>
+        <input type="hidden" name="startrespawnloadout" id="startrespawnloadout_truehidden" value="false">
 
         <h2>RoleArsenal Settings</h2>
 
@@ -142,10 +159,6 @@
 
         <input type="checkbox" name="startvehiclerefuel_checkbox" id="startvehiclerefuel" checked onchange="updateHidden(this)"> Do you want to Enable Vehicle Refueling at the Starting Location?<br>
         <input type="hidden" name="startvehiclerefuel"  id="startvehiclerefuel_truehidden" value="true">
-
-        <input type="checkbox" name="startrespawnloadout_checkbox" id="startrespawnloadout" onchange="updateHidden(this)"> Should players be given their resupply kit on death?<br>(Untick if you want them to keep their death loadout)<br>
-        <input type="hidden" name="startrespawnloadout" id="startrespawnloadout_truehidden" value="false">
-
 
         <h2>Resupply Point Settings</h2>
         <input type="checkbox" name="resupplypoint_checkbox" id="resupplypoint" checked onchange="updateHidden(this)"> Do you want to Enable a Resupply Point?<br>
@@ -800,12 +813,28 @@
             document.getElementById("CHECK_SCOPES_RQB").value = "0";
 
             // Update the corresponding hidden input based on the selected restriction
-            if (restriction === "cqb") {
+            if (restriction === "scope_cqb") {
                 document.getElementById("CHECK_SCOPES_CQB").value = "1";
-            } else if (restriction === "rus") {
+            } else if (restriction === "scope_rus") {
                 document.getElementById("CHECK_SCOPES_RUS").value = "1";
-            } else if (restriction === "cqb+rus") {
+            } else if (restriction === "scope_cqb+rus") {
                 document.getElementById("CHECK_SCOPES_RQB").value = "1";
+            }
+        }
+
+        function updateGrenadeType() {
+            // Reset all to 0
+            document.getElementById("CHECK_GRENADES_GEN").value = "0";
+            document.getElementById("CHECK_GRENADES_RUS").value = "0";
+            document.getElementById("CHECK_GRENADES_POL").value = "0";
+            // Set selected to 1
+            const val = document.getElementById("grenadeType").value;
+            if (val === "grenade_gen") {
+                document.getElementById("CHECK_GRENADES_GEN").value = "1";
+            } else if (val === "grenade_rus") {
+                document.getElementById("CHECK_GRENADES_RUS").value = "1";
+            } else if (val === "grenade_pol") {
+                document.getElementById("CHECK_GRENADES_POL").value = "1";
             }
         }
 
@@ -827,6 +856,9 @@
             const dispos = document.getElementById("dispos_hidden").value;
             const parachute = document.getElementById("parachute_hidden").value;
             const diving = document.getElementById("diving_hidden").value;
+            const grenades_gen = document.getElementById("CHECK_GRENADES_GEN").value;
+            const grenades_rus = document.getElementById("CHECK_GRENADES_RUS").value;
+            const grenades_pol = document.getElementById("CHECK_GRENADES_POL").value;
 
             const startrespawnloadout = document.getElementById("startrespawnloadout_truehidden").value;
             const startfactionchanging = document.getElementById("startfactionchanging_truehidden").value;
@@ -932,6 +964,14 @@
             `// Do you want Diving Gear Available? (1 = Enabled | 0 = Disabled)
 ` +
             `#define CHECK_DIVINGGEAR ${diving}
+` +
+            `// Which type of Grenades do you want access to? (1 = Enabled | 0 = Disabled)
+` +
+            `#define CHECK_GRENADES_GEN ${grenades_gen}
+` +
+            `#define CHECK_GRENADES_RUS ${grenades_rus}
+` +
+            `#define CHECK_GRENADES_POL ${grenades_pol}
 ` +
             `//-----------------------------------------------------------------------------\\
 ` +
@@ -1084,6 +1124,7 @@
             updateCamoOptions();
             updateCamoPhoto();
             precacheImages();
+            updateGrenadeType();
         });
     </script>
     </form>
