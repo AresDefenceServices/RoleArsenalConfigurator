@@ -841,19 +841,19 @@
             document.getElementById("CHECK_GRENADES_NONE").value = "0";
             // Set selected to 1
             const val = document.getElementById("grenadeType").value;
-            if (val === "grenade_gen") {
+            if (val === "generic") {
                 document.getElementById("CHECK_GRENADES_GENERIC").value = "1";
-            } else if (val === "grenade_rus") {
+            } else if (val === "ussr") {
                 document.getElementById("CHECK_GRENADES_SOVIET").value = "1";
-            } else if (val === "grenade_pol") {
+            } else if (val === "uscw") {
                 document.getElementById("CHECK_GRENADES_USCW").value = "1";
-            } else if (val === "grenade_pol") {
+            } else if (val === "russian") {
                 document.getElementById("CHECK_GRENADES_RUSSIAN").value = "1";
-            } else if (val === "grenade_pol") {
+            } else if (val === "police") {
                 document.getElementById("CHECK_GRENADES_POLICE").value = "1";
-            } else if (val === "grenade_pol") {
+            } else if (val === "alt") {
                 document.getElementById("CHECK_GRENADES_ALT").value = "1";
-            } else if (val === "grenade_pol") {
+            } else if (val === "none") {
                 document.getElementById("CHECK_GRENADES_NONE").value = "1";
             }
         }
@@ -876,13 +876,13 @@
             const dispos = document.getElementById("dispos_hidden").value;
             const parachute = document.getElementById("parachute_hidden").value;
             const diving = document.getElementById("diving_hidden").value;
-            const grenadeGeneric = document.getElementByID("CHECK_GRENADES_GENERIC").value;
-            const grenadeSoviet = document.getElementByID("CHECK_GRENADES_SOVIET").value;
-            const grenadeUSCW = document.getElementByID("CHECK_GRENADES_USCW").value;
-            const grenadeRussian = document.getElementByID("CHECK_GRENADES_RUSSIAN").value;
-            const grenadePolice = document.getElementByID("CHECK_GRENADES_POLICE").value;
-            const grenadeAlternative = document.getElementByID("CHECK_GRENADES_ALT").value;
-            const grenadeNone = document.getElementByID("CHECK_GRENADES_NONE").value;
+            const grenadeGeneric = document.getElementById("CHECK_GRENADES_GENERIC").value;
+            const grenadeSoviet = document.getElementById("CHECK_GRENADES_SOVIET").value;
+            const grenadeUSCW = document.getElementById("CHECK_GRENADES_USCW").value;
+            const grenadeRussian = document.getElementById("CHECK_GRENADES_RUSSIAN").value;
+            const grenadePolice = document.getElementById("CHECK_GRENADES_POLICE").value;
+            const grenadeAlternative = document.getElementById("CHECK_GRENADES_ALT").value;
+            const grenadeNone = document.getElementById("CHECK_GRENADES_NONE").value;
 
             const startrespawnloadout = document.getElementById("startrespawnloadout_truehidden").value;
             const startfactionchanging = document.getElementById("startfactionchanging_truehidden").value;
