@@ -719,7 +719,14 @@
                 "SW REBEL ALLIANCE": "https://steamcommunity.com/sharedfiles/filedetails/?id=3049257517",
                 "WH ARMY OF THE EMPIRE": "https://steamcommunity.com/sharedfiles/filedetails/?id=2857072858"
             };
-              
+
+            // New: camo-specific mod links
+            const modLinksByCamo = {
+                // Example: "FACTION|CAMO": "mod link"
+                // "BRITISH ARMED FORCES (3CB)|baf_3cb_win": "https://steamcommunity.com/sharedfiles/filedetails/?id=3295378128"
+                "PRIVATE MILITARY CONTRACTORS|pmc_sdc": "https://steamcommunity.com/sharedfiles/filedetails/?id=3347666255"
+            };
+
         function updateCamoOptions() {
             console.log("updateCamoOptions called");
             const faction = document.getElementById("faction").value;
@@ -737,13 +744,8 @@
                     camoSelect.add(opt);
                 });
 
-                // Display message and link for specific factions
-                if (modLinks[faction]) {
-                    modMessage.style.display = "block";
-                    modLink.href = modLinks[faction];
-                } else {
-                    modMessage.style.display = "none";
-                }                
+                // Display message and link for specific factions (but camo-specific handled below)
+                modMessage.style.display = "none";
             } else {
                 const opt = document.createElement("option");
                 opt.value = "";
@@ -762,10 +764,24 @@
 
             const defaultImage = "images/_notfound_.jpg";
             const photo = document.getElementById('factionCamoPhoto');
+            const modMessage = document.getElementById("modMessage");
+            const modLink = document.getElementById("modLink");
 
             if (!photo) {
                 console.error("Element with ID 'factionCamoPhoto' not found.");
                 return;
+            }
+
+            // Check for camo-specific mod link first
+            const camoKey = faction + "|" + camo;
+            if (modLinksByCamo[camoKey]) {
+                modMessage.style.display = "block";
+                modLink.href = modLinksByCamo[camoKey];
+            } else if (modLinks[faction]) {
+                modMessage.style.display = "block";
+                modLink.href = modLinks[faction];
+            } else {
+                modMessage.style.display = "none";
             }
 
             if (factionData[faction] && factionData[faction].images[camo]) {
