@@ -97,13 +97,13 @@
 
         <label for="grenadeType">What types of Grenades do you want to use? <b>(This doesn't do anything yet!)</b></label>
         <select name="grenadeType" id="grenadeType" onchange="updateGrenadeType()">
-            <option value="generic">Generic US Army</option>
-            <option value="ussr">USSR (Soviet)</option>
-            <option value="uscw">United States Army Cold War</option>
-            <option value="russian">Modern Russia</option>
-            <option value="police">Police</option>
-            <option value="alt">Alternative</option>
-            <option value="none">None</option>
+            <option value="grenade_generic">Generic US Army</option>
+            <option value="grenade_ussr">USSR (Soviet)</option>
+            <option value="grenade_uscw">United States Army Cold War</option>
+            <option value="grenade_russian">Modern Russia</option>
+            <option value="grenade_police">Police</option>
+            <option value="grenade_alt">Alternative</option>
+            <option value="grenade_none">None</option>
         </select>
         <input type="hidden" id="CHECK_GRENADES_GENERIC" value="1">
         <input type="hidden" id="CHECK_GRENADES_SOVIET" value="0">
@@ -841,19 +841,19 @@
             document.getElementById("CHECK_GRENADES_NONE").value = "0";
             // Set selected to 1
             const val = document.getElementById("grenadeType").value;
-            if (val === "generic") {
+            if (val === "grenade_generic") {
                 document.getElementById("CHECK_GRENADES_GENERIC").value = "1";
-            } else if (val === "ussr") {
+            } else if (val === "grenade_ussr") {
                 document.getElementById("CHECK_GRENADES_SOVIET").value = "1";
-            } else if (val === "uscw") {
+            } else if (val === "grenade_uscw") {
                 document.getElementById("CHECK_GRENADES_USCW").value = "1";
-            } else if (val === "russian") {
+            } else if (val === "grenade_russian") {
                 document.getElementById("CHECK_GRENADES_RUSSIAN").value = "1";
-            } else if (val === "police") {
+            } else if (val === "grenade_police") {
                 document.getElementById("CHECK_GRENADES_POLICE").value = "1";
-            } else if (val === "alt") {
+            } else if (val === "grenade_alt") {
                 document.getElementById("CHECK_GRENADES_ALT").value = "1";
-            } else if (val === "none") {
+            } else if (val === "grenade_none") {
                 document.getElementById("CHECK_GRENADES_NONE").value = "1";
             }
         }
