@@ -53,9 +53,8 @@
         <br>
         <select name="camo" id="camo" onchange="updateCamoPhoto()">
         </select>
-        <br>
         <div id="modMessage" style="color: red; display: none;">
-            <br>This faction requires an additional mod. Please remember to add it to your mission ticket.<br>
+            <br><span id="modText"></span><br>
             <a id="modLink" href="#" target="_blank">Click here to go to Steam Workshop.</a>
         </div>
         <br>
@@ -727,6 +726,25 @@
                 "PRIVATE MILITARY CONTRACTORS|pmc_sdc": "https://steamcommunity.com/sharedfiles/filedetails/?id=3347666255"
             };
 
+            // New: mod names for display
+            const modNames = {
+                "https://steamcommunity.com/sharedfiles/filedetails/?id=3295378128": "Ares Defence Services - 3CB BAF Collection",
+                "https://steamcommunity.com/sharedfiles/filedetails/?id=3162772962": "K_GIGN [French FS] No ACE",
+                "https://steamcommunity.com/sharedfiles/filedetails/?id=3349224742": "PLA_Forces_mas (REUPLOAD)",
+                "https://steamcommunity.com/sharedfiles/filedetails/?id=2957127204": "S8 - MTF Gear",
+                "https://steamcommunity.com/sharedfiles/filedetails/?id=2842058429": "Half Life: Our Benefactors",
+                "https://steamcommunity.com/sharedfiles/filedetails/?id=769440155": "Operation TREBUCHET",
+                "https://steamcommunity.com/sharedfiles/filedetails/?id=3049257517": "Arma 3 | Star Wars Additions (ADS) Collection",
+                "https://steamcommunity.com/sharedfiles/filedetails/?id=2857072858": "The Empires of Old",
+                "https://steamcommunity.com/sharedfiles/filedetails/?id=3347666255": "Sturm's Shadow Company"
+            };
+
+            // New: camo-specific mod names (optional, fallback to modNames)
+            const modNamesByCamo = {
+                // Example: "FACTION|CAMO": "Shadow Company (PMC SDC)"
+                "PRIVATE MILITARY CONTRACTORS|pmc_sdc": "Sturm's Shadow Company"
+            };
+
         function updateCamoOptions() {
             console.log("updateCamoOptions called");
             const faction = document.getElementById("faction").value;
@@ -734,6 +752,7 @@
             const camoSelect = document.getElementById("camo");
             const modMessage = document.getElementById("modMessage");
             const modLink = document.getElementById("modLink");
+            const modText = document.getElementById("modText");
             camoSelect.innerHTML = "";
 
             if (factionData[faction]) {
@@ -766,20 +785,24 @@
             const photo = document.getElementById('factionCamoPhoto');
             const modMessage = document.getElementById("modMessage");
             const modLink = document.getElementById("modLink");
-
-            if (!photo) {
-                console.error("Element with ID 'factionCamoPhoto' not found.");
-                return;
-            }
+            const modText = document.getElementById("modText");
 
             // Check for camo-specific mod link first
             const camoKey = faction + "|" + camo;
+            let modUrl = null;
+            let modDisplayName = null;
             if (modLinksByCamo[camoKey]) {
-                modMessage.style.display = "block";
-                modLink.href = modLinksByCamo[camoKey];
+                modUrl = modLinksByCamo[camoKey];
+                modDisplayName = modNamesByCamo[camoKey] || modNames[modUrl] || "an additional mod";
             } else if (modLinks[faction]) {
+                modUrl = modLinks[faction];
+                modDisplayName = modNames[modUrl] || "an additional mod";
+            }
+
+            if (modUrl) {
                 modMessage.style.display = "block";
-                modLink.href = modLinks[faction];
+                modLink.href = modUrl;
+                modText.innerHTML = `This faction or camo requires "<b>${modDisplayName}</b>".<br>Please remember to add it to your mission ticket.`;
             } else {
                 modMessage.style.display = "none";
             }
