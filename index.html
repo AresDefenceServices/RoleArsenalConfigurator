@@ -544,17 +544,23 @@
                 "UNITED STATES ARMY CORPS": {
                     camoOptions: [
                         { value: "", text: "Please select a camo." },
-                        { value: "usa_ocp", text: "OCP" },
-                        { value: "usa_ucp", text: "UCP" },
+                        { value: "usa_cup_ocp", text: "OCP (CUP)" },
+                        { value: "usa_rhs_ocp", text: "OCP (RHS)" },
+                        { value: "usa_cup_ucp", text: "UCP (CUP)" },
+                        { value: "usa_rhs_ucp", text: "UCP (RHS)" },
                         { value: "usa_hecu", text: "HECU" },
-                        { value: "usa_cdw", text: "COLD WAR" }
+                        { value: "usa_cdw", text: "COLD WAR (3CB)" },
+                        { value: "usa_cdw_mod", text: "COLD WAR (S&S)" }
                     ],
                     images: {
                         "": "images/_ares_.jpg",
-                        "usa_ocp": "images/usa-ocp.jpg",
-                        "usa_ucp": "images/usa-ucp.jpg",
+                        "usa_cup_ocp": "images/usa-ocp.jpg",
+                        "usa_rhs_ocp": "images/usa-ocp.jpg",
+                        "usa_cup_ucp": "images/usa-ucp.jpg",
+                        "usa_rhs_ucp": "images/usa-ucp.jpg",
                         "usa_hecu": "images/usa-hecu.jpg",
-                        "usa_cdw": "images/usa-cdw.jpg"
+                        "usa_cdw": "images/usa-cdw.jpg",
+                        "usa_cdw_mod": "images/_notfound_.jpg"
                     }
                 },
                 "UNITED STATES MARSOC": {
@@ -726,7 +732,8 @@
             const modLinksByCamo = {
                 // Example: "FACTION|CAMO": "mod link"
                 // "BRITISH ARMED FORCES (3CB)|baf_3cb_win": "https://steamcommunity.com/sharedfiles/filedetails/?id=3295378128"
-                "PRIVATE MILITARY CONTRACTORS|pmc_sdc": "https://steamcommunity.com/sharedfiles/filedetails/?id=3347666255"
+                "PRIVATE MILITARY CONTRACTORS|pmc_sdc": "https://steamcommunity.com/sharedfiles/filedetails/?id=3347666255",
+                "UNITED STATES ARMY CORPS|usa_cdw_mod": "https://steamcommunity.com/workshop/filedetails/?id=2183975396"
             };
 
             // New: mod names for display
@@ -739,13 +746,15 @@
                 "https://steamcommunity.com/sharedfiles/filedetails/?id=769440155": "Operation TREBUCHET",
                 "https://steamcommunity.com/sharedfiles/filedetails/?id=3049257517": "Arma 3 | Star Wars Additions (ADS) Collection",
                 "https://steamcommunity.com/sharedfiles/filedetails/?id=2857072858": "The Empires of Old",
-                "https://steamcommunity.com/sharedfiles/filedetails/?id=3347666255": "Sturm's Shadow Company"
+                "https://steamcommunity.com/sharedfiles/filedetails/?id=3347666255": "Sturm's Shadow Company",
+                "https://steamcommunity.com/workshop/filedetails/?id=2183975396": "S & S"
             };
 
             // New: camo-specific mod names (optional, fallback to modNames)
             const modNamesByCamo = {
                 // Example: "FACTION|CAMO": "Shadow Company (PMC SDC)"
-                "PRIVATE MILITARY CONTRACTORS|pmc_sdc": "Sturm's Shadow Company"
+                "PRIVATE MILITARY CONTRACTORS|pmc_sdc": "Sturm's Shadow Company",
+                "UNITED STATES ARMY CORPS|usa_cdw_mod": "S & S"
             };
 
         function updateCamoOptions() {
