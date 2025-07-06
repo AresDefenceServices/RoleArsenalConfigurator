@@ -53,9 +53,8 @@
         <br>
         <select name="camo" id="camo" onchange="updateCamoPhoto()">
         </select>
-        <br>
         <div id="modMessage" style="color: red; display: none;">
-            <br>This faction requires an additional mod. Please remember to add it to your mission ticket.<br>
+            <br><span id="modText"></span><br>
             <a id="modLink" href="#" target="_blank">Click here to go to Steam Workshop.</a>
         </div>
         <br>
@@ -97,13 +96,13 @@
 
         <label for="grenadeType">What types of Grenades do you want to use?</label>
         <select name="grenadeType" id="grenadeType" onchange="updateGrenadeType()">
-            <option value="generic">Generic US Army</option>
-            <option value="ussr">USSR (Soviet)</option>
-            <option value="uscw">United States Army Cold War</option>
-            <option value="russian">Modern Russia</option>
-            <option value="police">Police</option>
-            <option value="alt">Alternative</option>
-            <option value="none">None</option>
+            <option value="grenade_generic">Generic US Army</option>
+            <option value="grenade_ussr">USSR (Soviet)</option>
+            <option value="grenade_uscw">United States Army Cold War</option>
+            <option value="grenade_russian">Modern Russia</option>
+            <option value="grenade_police">Police</option>
+            <option value="grenade_alt">Alternative</option>
+            <option value="grenade_none">None</option>
         </select>
         <input type="hidden" id="CHECK_GRENADES_GENERIC" value="1">
         <input type="hidden" id="CHECK_GRENADES_SOVIET" value="0">
@@ -350,10 +349,10 @@
                     ],
                     images: {
                         "": "images/_ares_.jpg",
-                        "ion_blk": "images/_notfound_.jpg",
-                        "ion_cov": "images/_notfound_.jpg",
-                        "ion_des": "images/_notfound_.jpg",
-                        "ion_wdl": "images/_notfound_.jpg"
+                        "ion_blk": "images/ion-blk.jpg",
+                        "ion_cov": "images/ion-cov.jpg",
+                        "ion_des": "images/ion-des.jpg",
+                        "ion_wdl": "images/ion-wdl.jpg"
                     }
                 },
                 "LIVONIAN DEFENSE FORCE": {
@@ -363,7 +362,7 @@
                     ],
                     images: {
                         "": "images/_ares_.jpg",
-                        "ldf_geo": "images/_notfound_.jpg"
+                        "ldf_geo": "images/ldf-geo.jpg"
                     }
                 },
                 "NORTH ATLANTIC TREATY ORGANIZATION (2020)": {
@@ -435,13 +434,13 @@
                     ],
                     images: {
                         "": "images/_ares_.jpg",
-                        "pmc_cso": "images/_notfound_.jpg",
-                        "pmc_wso": "images/_notfound_.jpg",
-                        "pmc_cso_usa": "images/_notfound_.jpg",
-                        "pmc_wso_usa": "images/_notfound_.jpg",
-                        "pmc_cso_rus": "images/_notfound_.jpg",
-                        "pmc_wso_rus": "images/_notfound_.jpg",
-                        "pmc_sdc": "images/_notfound_.jpg"
+                        "pmc_cso": "images/pmc-cso.jpg",
+                        "pmc_wso": "images/pmc-wso.jpg",
+                        "pmc_cso_usa": "images/pmc-cso-usa.jpg",
+                        "pmc_wso_usa": "images/pmc-wso-usa.jpg",
+                        "pmc_cso_rus": "images/pmc-cso-rus.jpg",
+                        "pmc_wso_rus": "images/pmc-wso-rus.jpg",
+                        "pmc_sdc": "images/pmc-sdc.jpg"
                     }
                 },
                 "RUSSIAN ARMED FORCES": {
@@ -470,11 +469,11 @@
                     ],
                     images: {
                         "": "images/_ares_.jpg",
-                        "rus_rat_blk": "images/_notfound_.jpg",
-                        "rus_rat_des": "images/_notfound_.jpg",
-                        "rus_rat_mcam": "images/_notfound_.jpg",
-                        "rus_rat_sum": "images/_notfound_.jpg",
-                        "rus_rat_win": "images/_notfound_.jpg"
+                        "rus_rat_blk": "images/rus-rat-blk.jpg",
+                        "rus_rat_des": "images/rus-rat-des.jpg",
+                        "rus_rat_mcam": "images/rus-rat-mcam.jpg",
+                        "rus_rat_sum": "images/rus-rat-sum.jpg",
+                        "rus_rat_win": "images/rus-rat-win.jpg"
                     }
                 },
                 "RUSSIAN SPECIAL FORCES": {
@@ -501,7 +500,7 @@
                     ],
                     images: {
                         "": "images/_ares_.jpg",
-                        "scp_mtf": "images/_notfound_.jpg"
+                        "scp_mtf": "images/scp-mtf.jpg"
                     }
                 },
                 "SYNDIKAT": {
@@ -511,17 +510,17 @@
                     ],
                     images: {
                         "": "images/_ares_.jpg",
-                        "syn_cri": "images/_notfound_.jpg"
+                        "syn_cri": "images/syn-cri.jpg"
                     }
                 },
                 "TAKISTAN": {
                     camoOptions: [
                         { value: "", text: "Please select a camo." },
-                        { value: "tak_isr", text: "TAKISTAN INSURGENTS" }
+                        { value: "tak-ins", text: "TAKISTAN INSURGENTS" }
                     ],
                     images: {
                         "": "images/_ares_.jpg",
-                        "tak_isr": "images/_notfound_.jpg"
+                        "tak-ins": "images/tak-ins.jpg"
                     }
                 },
                 "UNITED NATIONS": {
@@ -535,27 +534,33 @@
                     ],
                     images: {
                         "": "images/_ares_.jpg",
-                        "un_baf_ddpm": "images/_notfound_.jpg",
-                        "un_baf_dpm": "images/_notfound_.jpg",
-                        "un_baf_mtp": "images/_notfound_.jpg",
-                        "un_usa_ocp": "images/_notfound_.jpg",
-                        "un_usa_ucp": "images/_notfound_.jpg"
+                        "un_baf_ddpm": "images/un-baf-ddpm.jpg",
+                        "un_baf_dpm": "images/un-baf-dpm.jpg",
+                        "un_baf_mtp": "images/un-baf-mtp.jpg",
+                        "un_usa_ocp": "images/un-usa-ocp.jpg",
+                        "un_usa_ucp": "images/un-usa-ucp.jpg"
                     }
                 },
                 "UNITED STATES ARMY CORPS": {
                     camoOptions: [
                         { value: "", text: "Please select a camo." },
-                        { value: "usa_ocp", text: "OCP" },
-                        { value: "usa_ucp", text: "UCP" },
+                        { value: "usa_cup_ocp", text: "OCP (CUP)" },
+                        { value: "usa_rhs_ocp", text: "OCP (RHS)" },
+                        { value: "usa_cup_ucp", text: "UCP (CUP)" },
+                        { value: "usa_rhs_ucp", text: "UCP (RHS)" },
                         { value: "usa_hecu", text: "HECU" },
-                        { value: "usa_cdw", text: "COLD WAR" }
+                        { value: "usa_cdw", text: "COLD WAR (3CB)" },
+                        { value: "usa_cdw_mod", text: "COLD WAR (S&S)" }
                     ],
                     images: {
                         "": "images/_ares_.jpg",
-                        "usa_ocp": "images/_notfound_.jpg",
-                        "usa_ucp": "images/_notfound_.jpg",
-                        "usa_hecu": "images/_notfound_.jpg",
-                        "usa_cdw": "images/_notfound_.jpg"
+                        "usa_cup_ocp": "images/usa-ocp.jpg",
+                        "usa_rhs_ocp": "images/usa-ocp.jpg",
+                        "usa_cup_ucp": "images/usa-ucp.jpg",
+                        "usa_rhs_ucp": "images/usa-ucp.jpg",
+                        "usa_hecu": "images/usa-hecu.jpg",
+                        "usa_cdw": "images/usa-cdw.jpg",
+                        "usa_cdw_mod": "images/_notfound_.jpg"
                     }
                 },
                 "UNITED STATES MARSOC": {
@@ -569,8 +574,11 @@
                     ],
                     images: {
                         "": "images/_ares_.jpg",
-                        "usa_sbr": "images/_notfound_.jpg",
-                        "usa_sgr": "images/_notfound_.jpg"
+                        "usa_sbr": "images/usa-sbr.jpg",
+                        "usa_sgr": "images/usa-sgr.jpg",
+                        "usa_mpd": "images/usa-mpd.jpg",
+                        "usa_mpw": "images/usa-mpw.jpg",
+                        "usa_m81": "images/usa-m81.jpg"
                     }
                 },
                 "HL LAMBDA RESISTANCE": {
@@ -598,18 +606,18 @@
                     ],
                     images: {
                         "": "images/_ares_.jpg",
-                        "hl2_cp": "images/_notfound_.jpg",
-                        "hl2_ota": "images/_notfound_.jpg"
+                        "hl2_cp": "images/hl2-cp.jpg",
+                        "hl2_ota": "images/hl2-ota.jpg"
                     }
                 },
                 "HALO UNITED NATIONS SPACE COMMAND": {
                     camoOptions: [
                         { value: "", text: "Please select a camo." },
-                        { value: "hal_unsc_odst", text: "ODST" }
+                        { value: "halo_unsc_odst", text: "ODST" }
                     ],
                     images: {
                         "": "images/_ares_.jpg",
-                        "hal_unsc_odst": "images/_notfound_.jpg"
+                        "halo_unsc_odst": "images/halo-unsc-odst.jpg"
                     }
                 },
                 "SW CONFEDERACY OF INDEPENDENT SYSTEMS": {
@@ -663,17 +671,17 @@
                     ],
                     images: {
                         "": "images/_ares_.jpg",
-                        "sw_gar_101_p2": "images/_notfound_.jpg",
-                        "sw_gar_212_p1": "images/_notfound_.jpg",
-                        "sw_gar_212_p2": "images/_notfound_.jpg",
-                        "sw_gar_212_snow": "images/_notfound_.jpg",
-                        "sw_gar_501_p1": "images/_notfound_.jpg",
-                        "sw_gar_501_p2": "images/_notfound_.jpg",
-                        "sw_gar_501_snow": "images/_notfound_.jpg",
-                        "sw_gar_ctc_p1": "images/_notfound_.jpg",
-                        "sw_gar_ctc_p2": "images/_notfound_.jpg",
-                        "sw_gar_rpc_delta": "images/_notfound_.jpg",
-                        "sw_gar_rpc_omega": "images/_notfound_.jpg"
+                        "sw_gar_101_p2": "images/sw-gar-101-p2.jpg",
+                        "sw_gar_212_p1": "images/sw-gar-212-p1.jpg",
+                        "sw_gar_212_p2": "images/sw-gar-212-p2.jpg",
+                        "sw_gar_212_snow": "images/sw-gar-212-snow.jpg",
+                        "sw_gar_501_p1": "images/sw-gar-501-p1.jpg",
+                        "sw_gar_501_p2": "images/sw-gar-501-p2.jpg",
+                        "sw_gar_501_snow": "images/sw-gar-501-snow.jpg",
+                        "sw_gar_ctc_p1": "images/sw-gar-ctc-p1.jpg",
+                        "sw_gar_ctc_p2": "images/sw-gar-ctc-p2.jpg",
+                        "sw_gar_rpc_delta": "images/sw-gar-rpc-delta.jpg",
+                        "sw_gar_rpc_omega": "images/sw-gar-rpc-omega.jpg"
                     }
                 },
                 "SW REBEL ALLIANCE": {
@@ -719,7 +727,36 @@
                 "SW REBEL ALLIANCE": "https://steamcommunity.com/sharedfiles/filedetails/?id=3049257517",
                 "WH ARMY OF THE EMPIRE": "https://steamcommunity.com/sharedfiles/filedetails/?id=2857072858"
             };
-              
+
+            // New: camo-specific mod links
+            const modLinksByCamo = {
+                // Example: "FACTION|CAMO": "mod link"
+                // "BRITISH ARMED FORCES (3CB)|baf_3cb_win": "https://steamcommunity.com/sharedfiles/filedetails/?id=3295378128"
+                "PRIVATE MILITARY CONTRACTORS|pmc_sdc": "https://steamcommunity.com/sharedfiles/filedetails/?id=3347666255",
+                "UNITED STATES ARMY CORPS|usa_cdw_mod": "https://steamcommunity.com/workshop/filedetails/?id=2183975396"
+            };
+
+            // New: mod names for display
+            const modNames = {
+                "https://steamcommunity.com/sharedfiles/filedetails/?id=3295378128": "Ares Defence Services - 3CB BAF Collection",
+                "https://steamcommunity.com/sharedfiles/filedetails/?id=3162772962": "K_GIGN [French FS] No ACE",
+                "https://steamcommunity.com/sharedfiles/filedetails/?id=3349224742": "PLA_Forces_mas (REUPLOAD)",
+                "https://steamcommunity.com/sharedfiles/filedetails/?id=2957127204": "S8 - MTF Gear",
+                "https://steamcommunity.com/sharedfiles/filedetails/?id=2842058429": "Half Life: Our Benefactors",
+                "https://steamcommunity.com/sharedfiles/filedetails/?id=769440155": "Operation TREBUCHET",
+                "https://steamcommunity.com/sharedfiles/filedetails/?id=3049257517": "Arma 3 | Star Wars Additions (ADS) Collection",
+                "https://steamcommunity.com/sharedfiles/filedetails/?id=2857072858": "The Empires of Old",
+                "https://steamcommunity.com/sharedfiles/filedetails/?id=3347666255": "Sturm's Shadow Company",
+                "https://steamcommunity.com/workshop/filedetails/?id=2183975396": "S & S"
+            };
+
+            // New: camo-specific mod names (optional, fallback to modNames)
+            const modNamesByCamo = {
+                // Example: "FACTION|CAMO": "Shadow Company (PMC SDC)"
+                "PRIVATE MILITARY CONTRACTORS|pmc_sdc": "Sturm's Shadow Company",
+                "UNITED STATES ARMY CORPS|usa_cdw_mod": "S & S"
+            };
+
         function updateCamoOptions() {
             console.log("updateCamoOptions called");
             const faction = document.getElementById("faction").value;
@@ -727,6 +764,7 @@
             const camoSelect = document.getElementById("camo");
             const modMessage = document.getElementById("modMessage");
             const modLink = document.getElementById("modLink");
+            const modText = document.getElementById("modText");
             camoSelect.innerHTML = "";
 
             if (factionData[faction]) {
@@ -737,13 +775,8 @@
                     camoSelect.add(opt);
                 });
 
-                // Display message and link for specific factions
-                if (modLinks[faction]) {
-                    modMessage.style.display = "block";
-                    modLink.href = modLinks[faction];
-                } else {
-                    modMessage.style.display = "none";
-                }                
+                // Display message and link for specific factions (but camo-specific handled below)
+                modMessage.style.display = "none";
             } else {
                 const opt = document.createElement("option");
                 opt.value = "";
@@ -762,10 +795,28 @@
 
             const defaultImage = "images/_notfound_.jpg";
             const photo = document.getElementById('factionCamoPhoto');
+            const modMessage = document.getElementById("modMessage");
+            const modLink = document.getElementById("modLink");
+            const modText = document.getElementById("modText");
 
-            if (!photo) {
-                console.error("Element with ID 'factionCamoPhoto' not found.");
-                return;
+            // Check for camo-specific mod link first
+            const camoKey = faction + "|" + camo;
+            let modUrl = null;
+            let modDisplayName = null;
+            if (modLinksByCamo[camoKey]) {
+                modUrl = modLinksByCamo[camoKey];
+                modDisplayName = modNamesByCamo[camoKey] || modNames[modUrl] || "an additional mod";
+            } else if (modLinks[faction]) {
+                modUrl = modLinks[faction];
+                modDisplayName = modNames[modUrl] || "an additional mod";
+            }
+
+            if (modUrl) {
+                modMessage.style.display = "block";
+                modLink.href = modUrl;
+                modText.innerHTML = `This faction or camo requires "<b>${modDisplayName}</b>".<br>Please remember to add it to your mission ticket.`;
+            } else {
+                modMessage.style.display = "none";
             }
 
             if (factionData[faction] && factionData[faction].images[camo]) {
@@ -841,19 +892,19 @@
             document.getElementById("CHECK_GRENADES_NONE").value = "0";
             // Set selected to 1
             const val = document.getElementById("grenadeType").value;
-            if (val === "generic") {
+            if (val === "grenade_generic") {
                 document.getElementById("CHECK_GRENADES_GENERIC").value = "1";
-            } else if (val === "ussr") {
+            } else if (val === "grenade_ussr") {
                 document.getElementById("CHECK_GRENADES_SOVIET").value = "1";
-            } else if (val === "uscw") {
+            } else if (val === "grenade_uscw") {
                 document.getElementById("CHECK_GRENADES_USCW").value = "1";
-            } else if (val === "russian") {
+            } else if (val === "grenade_russian") {
                 document.getElementById("CHECK_GRENADES_RUSSIAN").value = "1";
-            } else if (val === "police") {
+            } else if (val === "grenade_police") {
                 document.getElementById("CHECK_GRENADES_POLICE").value = "1";
-            } else if (val === "alt") {
+            } else if (val === "grenade_alt") {
                 document.getElementById("CHECK_GRENADES_ALT").value = "1";
-            } else if (val === "none") {
+            } else if (val === "grenade_none") {
                 document.getElementById("CHECK_GRENADES_NONE").value = "1";
             }
         }
