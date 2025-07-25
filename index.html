@@ -549,8 +549,9 @@
                         { value: "usa_cup_ucp", text: "UCP (CUP)" },
                         { value: "usa_rhs_ucp", text: "UCP (RHS)" },
                         { value: "usa_hecu", text: "HECU" },
-                        { value: "usa_cdw", text: "COLD WAR (3CB)" },
-                        { value: "usa_cdw_mod", text: "COLD WAR (S&S)" }
+                        { value: "usa_cdw_base", text: "COLD WAR (3CB)" },
+                        { value: "usa_cdw_early", text: "COLD WAR EARLY (S&S)" },
+                        { value: "usa_cdw_late", text: "COLD WAR LATE (S&S)" }
                     ],
                     images: {
                         "": "images/_ares_.jpg",
@@ -559,8 +560,9 @@
                         "usa_cup_ucp": "images/usa-ucp.jpg",
                         "usa_rhs_ucp": "images/usa-ucp.jpg",
                         "usa_hecu": "images/usa-hecu.jpg",
-                        "usa_cdw": "images/usa-cdw.jpg",
-                        "usa_cdw_mod": "images/_notfound_.jpg"
+                        "usa_cdw_base": "images/usa-cdw.jpg",
+                        "usa_cdw_early": "images/_notfound_.jpg",
+                        "usa_cdw_late": "images/_notfound_.jpg"
                     }
                 },
                 "UNITED STATES MARSOC": {
@@ -733,7 +735,8 @@
                 // Example: "FACTION|CAMO": "mod link"
                 // "BRITISH ARMED FORCES (3CB)|baf_3cb_win": "https://steamcommunity.com/sharedfiles/filedetails/?id=3295378128"
                 "PRIVATE MILITARY CONTRACTORS|pmc_sdc": "https://steamcommunity.com/sharedfiles/filedetails/?id=3347666255",
-                "UNITED STATES ARMY CORPS|usa_cdw_mod": "https://steamcommunity.com/workshop/filedetails/?id=2183975396"
+                "UNITED STATES ARMY CORPS|usa_cdw_early": "https://steamcommunity.com/workshop/filedetails/?id=2183975396",
+                "UNITED STATES ARMY CORPS|usa_cdw_late": "https://steamcommunity.com/workshop/filedetails/?id=2183975396"
             };
 
             // New: mod names for display
@@ -754,7 +757,8 @@
             const modNamesByCamo = {
                 // Example: "FACTION|CAMO": "Shadow Company (PMC SDC)"
                 "PRIVATE MILITARY CONTRACTORS|pmc_sdc": "Sturm's Shadow Company",
-                "UNITED STATES ARMY CORPS|usa_cdw_mod": "S & S"
+                "UNITED STATES ARMY CORPS|usa_cdw_early": "S & S",
+                "UNITED STATES ARMY CORPS|usa_cdw_late": "S & S"
             };
 
         function updateCamoOptions() {
